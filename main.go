@@ -93,9 +93,11 @@ func main() {
 			return c.JSON(http.StatusInternalServerError, ErrorStd{Message: err.Error()})
 		}
 
+		var id string
 		if rows.Next() {
-			rows.Scan(&notes.ID)
+			rows.Scan(&id)
 		}
+		notes.ID = id
 
 		return c.JSON(http.StatusOK, notes)
 	})
