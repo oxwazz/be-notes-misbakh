@@ -11,7 +11,7 @@ services:
       - POSTGRES_USER=notes-misbakh-be-prod
       - POSTGRES_PASSWORD=tN8Rmp3$8KKBTdcx
     ports:
-      - '5433:5432'
+      - '5432'
     volumes:
       - pgdata:/var/lib/postgresql/data
 
