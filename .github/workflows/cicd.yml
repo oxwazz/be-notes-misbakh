@@ -1,16 +1,13 @@
 name: BE CI/CD
 on:
   push:
-
 jobs:
-
   deployment:
-    needs: build
     runs-on: ubuntu-20.04
     steps:
       - name: Deploy Stage
         uses: fjogeleit/http-request-action@v1
         with:
-          url: 'https://portainer.oxwazz.com/api/stacks/webhooks/8b468f8d-aa79-46db-ab97-3557171ebdb2'
+          url: 'https://portainer.oxwazz.com/api/stacks/webhooks/4e9f0f7e-d218-471c-bf8c-71de51936926'
           method: 'POST'
           preventFailureOnNoResponse: 'true'
