@@ -20,7 +20,7 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     ports:
-      - '4001:1323'
+      - '4031:1323'
     depends_on:
       - db
     pull_policy: build
