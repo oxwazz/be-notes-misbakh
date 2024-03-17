@@ -42,7 +42,6 @@ func main() {
 
 	// execute a query on the server
 	result, err := db.Exec(schema)
-
 	if err != nil {
 		log.Println(err)
 	}
