@@ -123,6 +123,25 @@ func main() {
 
 		return c.JSON(http.StatusOK, notes)
 	})
+	e.GET("/notes", func(c echo.Context) error {
+		rows, err := db.Queryx("SELECT * FROM notes")
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, ErrorStd{Message: err.Error()})
+		}
+		var notes []Note
+
+		for rows.Next() {
+			var note Note
+			err := rows.StructScan(&note)
+			if err != nil {
+				return c.JSON(http.StatusInternalServerError, ErrorStd{Message: err.Error()})
+			}
+			notes = append(notes, note)
+		}
+
+		return c.JSON(http.StatusOK, notes)
+
+	})
 	e.PATCH("/notes/:id", func(c echo.Context) error {
 		id := c.Param("id")
 		var notes Note
