@@ -88,7 +88,7 @@ func main() {
 			return c.JSON(http.StatusInternalServerError, ErrorStd{Message: err.Error()})
 		}
 
-		rows, err := db.Queryx("INSERT INTO notes (description, amount, created_at) VALUES ($1, $2, $3)", notes.Description, notes.Amount, notes.CreatedAt)
+		rows, err := db.Queryx("INSERT INTO notes (description, amount, created_at) VALUES ($1, $2, $3) RETURNING id", notes.Description, notes.Amount, notes.CreatedAt)
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, ErrorStd{Message: err.Error()})
 		}
