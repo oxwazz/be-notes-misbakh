@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"github.com/jmoiron/sqlx"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -31,23 +30,23 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	}
-
+	db.SetMaxOpenConns(100)
 	defer db.Close()
 
-	schema := `CREATE TABLE notes (
-					id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-					description TEXT NOT NULL,
-					amount integer NOT NULL,
-					created_at timestamptz NOT NULL
-	      	);`
+	//schema := `CREATE TABLE notes (
+	//				id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+	//				description TEXT NOT NULL,
+	//				amount integer NOT NULL,
+	//				created_at timestamptz NOT NULL
+	//      	);`
 
 	// execute a query on the server
-	result, err := db.Exec(schema)
-	if err != nil {
-		log.Println(err)
-	}
-
-	log.Println(&result)
+	//result, err := db.Exec(schema)
+	//if err != nil {
+	//	log.Println(err)
+	//}
+	//
+	//log.Println(&result)
 
 	////add data
 	//log.Print(time.Now().Format(time.RFC3339), 23)
@@ -181,13 +180,4 @@ func main() {
 	})
 
 	e.Logger.Fatal(e.Start(":1323"))
-}
-
-func GetJSONRawBody(c echo.Context) map[string]interface{} {
-	jsonBody := make(map[string]interface{})
-	err := json.NewDecoder(c.Request().Body).Decode(&jsonBody)
-	if err != nil {
-		return nil
-	}
-	return jsonBody
 }
